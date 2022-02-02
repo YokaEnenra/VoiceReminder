@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace VoiceReminder
 {
-    public partial class Form1 : Form
+    public partial class ShowReminders : Form
     {
-        public Form1()
+        public ShowReminders()
         {
             InitializeComponent();
+        }
+
+        private void deleteReminder_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
