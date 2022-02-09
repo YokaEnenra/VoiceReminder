@@ -83,7 +83,10 @@
             this.Controls.Add(this.chooseDateTime);
             this.Controls.Add(this.timePicker);
             this.Controls.Add(this.datePicker);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PostponeWindow";
             this.Text = "VoiceReminder";
             this.ResumeLayout(false);

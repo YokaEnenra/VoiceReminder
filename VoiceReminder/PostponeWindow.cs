@@ -23,6 +23,8 @@ namespace VoiceReminder
             timePicker.Format = DateTimePickerFormat.Custom;
             timePicker.CustomFormat = "HH:mm";
             timePicker.ShowUpDown = true;
+            chooseDateTime.Text = ProgramDictionary.words["chooseDateTime"];
+            postponeReminder.Text = ProgramDictionary.words["postponeReminder"];
         }
 
 

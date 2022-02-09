@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace VoiceReminder
 {
-    public partial class LanguageChooseWindow : Form
+    internal partial class LanguageChooseWindow : Form
     {
-        public string language { get; set; }
-        public LanguageChooseWindow()
+        internal string language { get; set; }
+        internal LanguageChooseWindow()
         {
             InitializeComponent();
             Load += LanguageChooseWindow_Load;
@@ -24,6 +24,9 @@ namespace VoiceReminder
             language = "none";
             languagesBox.Items.AddRange(new string[] { "English", "Українська" });
             languagesBox.SelectedIndex = 0;
+            choiceOk.Text = ProgramDictionary.words["choiceOk"];
+            choiceCancel.Text = ProgramDictionary.words["choiceCancel"];
+            chooseLanguageLabel.Text = ProgramDictionary.words["chooseLanguageLabel"];
         }
 
         private void choiceOk_Click(object sender, EventArgs e)
@@ -34,7 +37,7 @@ namespace VoiceReminder
 
         private void choiseCancel_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Close();
         }
     }
 }

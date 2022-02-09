@@ -20,10 +20,16 @@ namespace VoiceReminder
 
         private void RemindWindow_Load(object sender, EventArgs e)
         {
-            
+            playVoice.Text = ProgramDictionary.words["playVoice"];
+            postponeReminder.Text = ProgramDictionary.words["postponeReminder"];
         }
 
         private void postponeReminder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playVoice_Click(object sender, EventArgs e)
         {
 
         }
