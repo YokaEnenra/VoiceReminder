@@ -25,6 +25,8 @@ namespace VoiceReminder
         private string _outputFilename;
         private string _lastRecordFile;
         private WMPLib.WindowsMediaPlayer WMP;
+
+
         internal MainWindow()
         {
             InitializeComponent();
@@ -325,22 +327,6 @@ namespace VoiceReminder
             if (Choice.Language())
                 MessageBox.Show(ProgramDictionary.Words["changesAfter"], ProgramDictionary.Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
             ProgramRegistry.CloseRegistry();
-        }
-
-        private void Surprise(object sender, EventArgs e)
-        {
-            WMP = new WMPLib.WindowsMediaPlayer();
-            WMP.URL = AppDomain.CurrentDomain.BaseDirectory + "someSpecialSound.mp3";
-            WMP.controls.play();
-            notifyIcon1.ContextMenuStrip = contextMenuStrip2;
-            notifyIcon1.Visible = true;
-        }
-
-        private void даТыЗаебалСтопБлятьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            WMP.controls.stop();
-            notifyIcon1.ContextMenuStrip = contextMenuStrip1;
-            notifyIcon1.Visible = false;
         }
 
     }

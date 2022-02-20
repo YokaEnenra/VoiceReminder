@@ -11,8 +11,6 @@ namespace VoiceReminder
         private static RegistryKey _softwareMachineKey;
         private static RegistryKey _yokaIncKey;
         internal static string programDataPath;
-        //TODO Удалить хуйню
-        internal static DateTime Start;
         internal static RegistryKey VoiceReminderKey { get; set; }
 
         internal static void OpenRegistry()

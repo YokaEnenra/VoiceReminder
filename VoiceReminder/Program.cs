@@ -53,7 +53,6 @@ namespace VoiceReminder
             // приложение запущено в единственном экземпляре
             if (onlyInstance)
             {
-                Start = DateTime.Now;
                 Task.Run(ReminderTracker.StartTracking);
                 Application.Run(new MainWindow());
             }
