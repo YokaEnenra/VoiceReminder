@@ -250,7 +250,6 @@
             this.даТыЗаебалСтопБлятьToolStripMenuItem.Name = "даТыЗаебалСтопБлятьToolStripMenuItem";
             this.даТыЗаебалСтопБлятьToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.даТыЗаебалСтопБлятьToolStripMenuItem.Text = "Да ты заебал, стоп блять";
-            this.даТыЗаебалСтопБлятьToolStripMenuItem.Click += new System.EventHandler(this.даТыЗаебалСтопБлятьToolStripMenuItem_Click);
             // 
             // daysCount
             // 
