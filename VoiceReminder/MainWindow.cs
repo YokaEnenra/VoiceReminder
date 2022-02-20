@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using VoiceReminder.Properties;
 using static VoiceReminder.ProgramDictionary;
@@ -29,7 +30,7 @@ namespace VoiceReminder
             InitializeComponent();
             Load += Form1_Load;
             FormClosing += MainWindow_FormClosing;
-            Resize += MainWindow_Resize;
+            SizeChanged += MainWindow_Resize;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,21 +44,21 @@ namespace VoiceReminder
             _userClosing = false;
             _isPlaying = false;
             _reminderCreated = false;
-            chooseDateTime.Text = words["chooseDateTime"];
-            chooseName.Text = words["chooseName"];
-            doRecord.Text = words["doRecord"];
-            recordVoice.Text = words["recordVoice"];
-            showReminders.Text = words["showReminders"];
-            playVoice.Text = words["playVoice"];
-            deleteVoice.Text = words["deleteVoice"];
-            createReminder.Text = words["createReminder"];
-            exitApplication.Text = words["exitApplication"];
-            showApplication.Text = words["showApplication"];
-            changeLanguageStrip.Text = words["changeLanguageStrip"];
-            viewStrip.Text = words["viewStrip"];
-            whenNotify.Text = words["whenNotify"];
-            hours.Text = words["hours"];
-            days.Text = words["days"];
+            chooseDateTime.Text = Words["chooseDateTime"];
+            chooseName.Text = Words["chooseName"];
+            doRecord.Text = Words["doRecord"];
+            recordVoice.Text = Words["recordVoice"];
+            showReminders.Text = Words["showReminders"];
+            playVoice.Text = Words["playVoice"];
+            deleteVoice.Text = Words["deleteVoice"];
+            createReminder.Text = Words["createReminder"];
+            exitApplication.Text = Words["exitApplication"];
+            showApplication.Text = Words["showApplication"];
+            changeLanguageStrip.Text = Words["changeLanguageStrip"];
+            viewStrip.Text = Words["viewStrip"];
+            whenNotify.Text = Words["whenNotify"];
+            hours.Text = Words["hours"];
+            days.Text = Words["days"];
             _lastRecordFile = "0";
         }
 
@@ -109,7 +110,7 @@ namespace VoiceReminder
             else
             {
                 //Записываем данные из буфера в файл
-                _writer.WriteData(e.Buffer, 0, e.BytesRecorded);
+                _writer.Write(e.Buffer, 0, e.BytesRecorded);
             }
         }
         //Завершаем запись
@@ -137,7 +138,7 @@ namespace VoiceReminder
         {
             if (_isRecorded)
             {
-                MessageBox.Show(words["recordedVoice"], words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["recordedVoice"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (!_recordGoes)
@@ -181,7 +182,7 @@ namespace VoiceReminder
         {
             if (!_isRecorded)
             {
-                MessageBox.Show(words["noFile"], words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["noFile"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -203,7 +204,7 @@ namespace VoiceReminder
         {
             if (!_isRecorded)
             {
-                MessageBox.Show(words["noFile"], words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["noFile"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -215,22 +216,22 @@ namespace VoiceReminder
         {
             if (datePicker.Value.Date + timePicker.Value.TimeOfDay <= DateTime.Now)
             {
-                MessageBox.Show(words["pastDate"], words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["pastDate"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (String.IsNullOrEmpty(reminderName.Text))
             {
-                MessageBox.Show(words["noName"], words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["noName"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            string daysBefore = GetValue(daysCount);
-            string hoursBefore = GetValue(hoursCount);
+            string daysBefore = Get.Value(daysCount);
+            string hoursBefore = Get.Value(hoursCount);
             DateTime tempDateTime = datePicker.Value.AddDays(-Convert.ToInt32(daysBefore));
             if (tempDateTime.Date < DateTime.Now.Date)
             {
-                MessageBox.Show(words["notifyDate"], words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["notifyDate"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -239,7 +240,7 @@ namespace VoiceReminder
                 tempDateTime = timePicker.Value.AddHours(-Convert.ToInt32(hoursBefore));
                 if (tempDateTime.TimeOfDay <= DateTime.Now.TimeOfDay)
                 {
-                    MessageBox.Show(words["notifyDate"], words["info"], MessageBoxButtons.OK,
+                    MessageBox.Show(Words["notifyDate"], Words["info"], MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     return;
                 }
@@ -248,7 +249,7 @@ namespace VoiceReminder
             DialogResult dialogResult;
             if (!_isRecorded)
             {
-                dialogResult = MessageBox.Show(words["noAudio"], words["info"], MessageBoxButtons.YesNo,
+                dialogResult = MessageBox.Show(Words["noAudio"], Words["info"], MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.No)
                 {
@@ -258,8 +259,8 @@ namespace VoiceReminder
             
             
             dialogResult = DialogResult.No;
-            dialogResult = MessageBox.Show($"{words["newReminder"]}: {datePicker.Text}, {timePicker.Text}",
-                words["areSure"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            dialogResult = MessageBox.Show($"{Words["newReminder"]}: {datePicker.Text}, {timePicker.Text}",
+                Words["areSure"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.No)
                 return;
             string timeNoDoubleQuotation = timePicker.Value.TimeOfDay.ToString().Replace(':','.').Remove(5,3);
@@ -271,7 +272,7 @@ namespace VoiceReminder
                 sw.Write(toWriteText);
             }
 
-            MessageBox.Show($"{words["creationSuccess"]}: {datePicker.Text}, {timePicker.Text}", words["info"],
+            MessageBox.Show($"{Words["creationSuccess"]}: {datePicker.Text}, {timePicker.Text}", Words["info"],
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             _isRecorded = false;
             reminderName.Text = "";
@@ -280,20 +281,6 @@ namespace VoiceReminder
             _lastRecordFile = "";
             datePicker.Value = DateTime.Now.Date;
             timePicker.Value = DateTime.Now;
-        }
-
-        private string GetValue(TextBox smthCount)
-        {
-            string someValue;
-            try
-            {
-                someValue = Convert.ToInt32(smthCount.Text).ToString();
-            }
-            catch (FormatException)
-            {
-                someValue = "0";
-            }
-            return someValue;
         }
 
         private void ShowReminders_Click(object sender, EventArgs e)
@@ -313,7 +300,7 @@ namespace VoiceReminder
 
         private void exitApplication_Click(object sender, EventArgs e)
         {
-            var closeDialog = MessageBox.Show(ProgramDictionary.words["fullExitInfo"], ProgramDictionary.words["info"],
+            var closeDialog = MessageBox.Show(ProgramDictionary.Words["fullExitInfo"], ProgramDictionary.Words["info"],
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (closeDialog == DialogResult.Yes)
             {
@@ -336,7 +323,7 @@ namespace VoiceReminder
         {
             ProgramRegistry.OpenRegistry();
             if (Choice.Language())
-                MessageBox.Show(ProgramDictionary.words["changesAfter"], ProgramDictionary.words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ProgramDictionary.Words["changesAfter"], ProgramDictionary.Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
             ProgramRegistry.CloseRegistry();
         }
 

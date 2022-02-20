@@ -60,7 +60,7 @@
             // 
             this.postponeReminder.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.postponeReminder.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.postponeReminder.Location = new System.Drawing.Point(204, 72);
+            this.postponeReminder.Location = new System.Drawing.Point(254, 72);
             this.postponeReminder.Name = "postponeReminder";
             this.postponeReminder.Size = new System.Drawing.Size(122, 62);
             this.postponeReminder.TabIndex = 12;
@@ -73,8 +73,9 @@
             this.reminderText.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.reminderText.Location = new System.Drawing.Point(16, 37);
             this.reminderText.Name = "reminderText";
-            this.reminderText.Size = new System.Drawing.Size(310, 29);
+            this.reminderText.Size = new System.Drawing.Size(360, 29);
             this.reminderText.TabIndex = 16;
+            this.reminderText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RemindWindow
             // 
@@ -82,7 +83,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.postponeReminder;
-            this.ClientSize = new System.Drawing.Size(340, 143);
+            this.ClientSize = new System.Drawing.Size(384, 143);
             this.Controls.Add(this.reminderText);
             this.Controls.Add(this.postponeReminder);
             this.Controls.Add(this.playVoice);

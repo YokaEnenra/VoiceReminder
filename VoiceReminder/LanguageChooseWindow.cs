@@ -24,9 +24,9 @@ namespace VoiceReminder
             language = "none";
             languagesBox.Items.AddRange(new string[] { "English", "Українська" });
             languagesBox.SelectedIndex = 0;
-            choiceOk.Text = ProgramDictionary.words["choiceOk"];
-            choiceCancel.Text = ProgramDictionary.words["choiceCancel"];
-            chooseLanguageLabel.Text = ProgramDictionary.words["chooseLanguageLabel"];
+            choiceOk.Text = ProgramDictionary.Words["choiceOk"];
+            choiceCancel.Text = ProgramDictionary.Words["choiceCancel"];
+            chooseLanguageLabel.Text = ProgramDictionary.Words["chooseLanguageLabel"];
         }
 
         private void choiceOk_Click(object sender, EventArgs e)

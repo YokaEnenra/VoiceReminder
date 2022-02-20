@@ -41,7 +41,7 @@
             // deleteReminder
             // 
             this.deleteReminder.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.deleteReminder.Location = new System.Drawing.Point(103, 189);
+            this.deleteReminder.Location = new System.Drawing.Point(128, 191);
             this.deleteReminder.Name = "deleteReminder";
             this.deleteReminder.Size = new System.Drawing.Size(127, 62);
             this.deleteReminder.TabIndex = 16;
@@ -52,7 +52,7 @@
             // reminderName
             // 
             this.reminderName.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.reminderName.Location = new System.Drawing.Point(37, 12);
+            this.reminderName.Location = new System.Drawing.Point(57, 12);
             this.reminderName.Name = "reminderName";
             this.reminderName.Size = new System.Drawing.Size(258, 29);
             this.reminderName.TabIndex = 12;
@@ -60,7 +60,7 @@
             // playVoice
             // 
             this.playVoice.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.playVoice.Location = new System.Drawing.Point(103, 84);
+            this.playVoice.Location = new System.Drawing.Point(128, 82);
             this.playVoice.Name = "playVoice";
             this.playVoice.Size = new System.Drawing.Size(127, 31);
             this.playVoice.TabIndex = 17;
@@ -83,7 +83,7 @@
             // 
             this.nextReminder.BackgroundImage = global::VoiceReminder.Properties.Resources.RightArrow;
             this.nextReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.nextReminder.Location = new System.Drawing.Point(273, 155);
+            this.nextReminder.Location = new System.Drawing.Point(319, 155);
             this.nextReminder.Name = "nextReminder";
             this.nextReminder.Size = new System.Drawing.Size(53, 30);
             this.nextReminder.TabIndex = 18;
@@ -94,7 +94,7 @@
             // 
             this.postponeReminder.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.postponeReminder.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.postponeReminder.Location = new System.Drawing.Point(103, 121);
+            this.postponeReminder.Location = new System.Drawing.Point(128, 123);
             this.postponeReminder.Name = "postponeReminder";
             this.postponeReminder.Size = new System.Drawing.Size(127, 62);
             this.postponeReminder.TabIndex = 20;
@@ -107,15 +107,16 @@
             this.reminderText.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.reminderText.Location = new System.Drawing.Point(12, 47);
             this.reminderText.Name = "reminderText";
-            this.reminderText.Size = new System.Drawing.Size(314, 29);
+            this.reminderText.Size = new System.Drawing.Size(360, 29);
             this.reminderText.TabIndex = 21;
+            this.reminderText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ShowReminders
             // 
             this.AcceptButton = this.playVoice;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 259);
+            this.ClientSize = new System.Drawing.Size(380, 258);
             this.Controls.Add(this.reminderText);
             this.Controls.Add(this.postponeReminder);
             this.Controls.Add(this.previousReminder);

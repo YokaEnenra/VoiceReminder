@@ -33,9 +33,9 @@ namespace VoiceReminder
 
         private void ShowReminders_Load(object sender, EventArgs e)
         {
-            playVoice.Text = words["playVoice"];
-            deleteReminder.Text = words["deleteReminder"];
-            postponeReminder.Text = words["postponeReminder"];
+            playVoice.Text = Words["playVoice"];
+            deleteReminder.Text = Words["deleteReminder"];
+            postponeReminder.Text = Words["postponeReminder"];
             allfiles = Directory.GetFiles($@"{programDataPath}\TextData\", "*.*", SearchOption.AllDirectories);
             _isPlaying = false;
             index = 0;
@@ -69,6 +69,8 @@ namespace VoiceReminder
 
         private void postponeReminder_Click(object sender, EventArgs e)
         {
+            PostponeWindow postpone = new PostponeWindow();
+            postpone.ShowDialog(allfiles[index]);
 
         }
 
@@ -110,7 +112,7 @@ namespace VoiceReminder
             _date = _date.Remove(0, temp + 1);
             var partsDate = _date.Split('_');
             partsDate[1] = partsDate[1].Replace('.', ':');
-            reminderText.Text = $"{words["reminderIs"]} {partsDate[0]} {partsDate[1]}";
+            reminderText.Text = $"{Words["reminderIs"]} {partsDate[0]} {partsDate[1]}";
         }
 
         private void previousReminder_Click(object sender, EventArgs e)
