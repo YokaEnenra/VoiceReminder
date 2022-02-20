@@ -49,8 +49,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.viewStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.changeLanguageStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.даТыЗаебалСтопБлятьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.daysCount = new System.Windows.Forms.TextBox();
             this.hoursCount = new System.Windows.Forms.TextBox();
             this.whenNotify = new System.Windows.Forms.Label();
@@ -59,7 +57,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.recordIcon)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // datePicker
@@ -197,19 +194,19 @@
             this.showApplication,
             this.exitApplication});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(126, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
             // 
             // showApplication
             // 
             this.showApplication.Name = "showApplication";
-            this.showApplication.Size = new System.Drawing.Size(125, 22);
+            this.showApplication.Size = new System.Drawing.Size(180, 22);
             this.showApplication.Text = "Показати";
             this.showApplication.Click += new System.EventHandler(this.showApplication_Click);
             // 
             // exitApplication
             // 
             this.exitApplication.Name = "exitApplication";
-            this.exitApplication.Size = new System.Drawing.Size(125, 22);
+            this.exitApplication.Size = new System.Drawing.Size(180, 22);
             this.exitApplication.Text = "Вихід";
             this.exitApplication.Click += new System.EventHandler(this.exitApplication_Click);
             // 
@@ -237,19 +234,6 @@
             this.changeLanguageStrip.Size = new System.Drawing.Size(150, 22);
             this.changeLanguageStrip.Text = "Змінити мову";
             this.changeLanguageStrip.Click += new System.EventHandler(this.changeLanguageStrip_Click);
-            // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.даТыЗаебалСтопБлятьToolStripMenuItem});
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(211, 26);
-            // 
-            // даТыЗаебалСтопБлятьToolStripMenuItem
-            // 
-            this.даТыЗаебалСтопБлятьToolStripMenuItem.Name = "даТыЗаебалСтопБлятьToolStripMenuItem";
-            this.даТыЗаебалСтопБлятьToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.даТыЗаебалСтопБлятьToolStripMenuItem.Text = "Да ты заебал, стоп блять";
             // 
             // daysCount
             // 
@@ -332,7 +316,6 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,8 +347,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem viewStrip;
         private System.Windows.Forms.ToolStripMenuItem changeLanguageStrip;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
-        private System.Windows.Forms.ToolStripMenuItem даТыЗаебалСтопБлятьToolStripMenuItem;
         private System.Windows.Forms.TextBox daysCount;
         private System.Windows.Forms.TextBox hoursCount;
         private System.Windows.Forms.Label whenNotify;
