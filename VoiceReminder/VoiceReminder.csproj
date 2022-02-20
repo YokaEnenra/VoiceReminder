@@ -79,16 +79,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Choice.cs" />
+    <Compile Include="Get.cs" />
+    <Compile Include="LanguageChooseWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="LanguageChooseWindow.Designer.cs">
+      <DependentUpon>LanguageChooseWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostponeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostponeWindow.Designer.cs">
+      <DependentUpon>PostponeWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramDictionary.cs" />
+    <Compile Include="ProgramNotExistException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ProgramRegistry.cs" />
+    <Compile Include="ReminderTracker.cs" />
+    <Compile Include="RemindWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemindWindow.Designer.cs">
+      <DependentUpon>RemindWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowReminders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowReminders.Designer.cs">
+      <DependentUpon>ShowReminders.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="LanguageChooseWindow.resx">
+      <DependentUpon>LanguageChooseWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostponeWindow.resx">
+      <DependentUpon>PostponeWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,7 +135,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RemindWindow.resx">
+      <DependentUpon>RemindWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowReminders.resx">
+      <DependentUpon>ShowReminders.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -112,6 +156,32 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RecordGoes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Record.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VoiceReminderIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
