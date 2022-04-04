@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VoiceReminder
 {
     internal partial class LanguageChooseWindow : Form
     {
-        internal string language { get; set; }
+        internal string Language { get; private set; }
         internal LanguageChooseWindow()
         {
             InitializeComponent();
@@ -21,8 +14,8 @@ namespace VoiceReminder
 
         private void LanguageChooseWindow_Load(object sender, EventArgs e)
         {
-            language = "none";
-            languagesBox.Items.AddRange(new string[] { "English", "Українська" });
+            Language = "none";
+            languagesBox.Items.AddRange(new object[] { "English", "Українська" });
             languagesBox.SelectedIndex = 0;
             choiceOk.Text = ProgramDictionary.Words["choiceOk"];
             choiceCancel.Text = ProgramDictionary.Words["choiceCancel"];
@@ -31,11 +24,11 @@ namespace VoiceReminder
 
         private void choiceOk_Click(object sender, EventArgs e)
         {
-            language = languagesBox.SelectedItem as string;
+            Language = languagesBox.SelectedItem as string;
             Close();
         }
 
-        private void choiseCancel_Click(object sender, EventArgs e)
+        private void choiceCancel_Click(object sender, EventArgs e)
         {
             Close();
         }

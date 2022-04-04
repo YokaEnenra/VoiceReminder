@@ -10,7 +10,7 @@ namespace VoiceReminder
         private static RegistryKey _currentUserKey;
         private static RegistryKey _softwareMachineKey;
         private static RegistryKey _yokaIncKey;
-        internal static string programDataPath;
+        internal static string ProgramDataPath;
         internal static RegistryKey VoiceReminderKey { get; set; }
 
         internal static void OpenRegistry()
@@ -29,23 +29,14 @@ namespace VoiceReminder
             _currentUserKey.Close();
         }
 
-        internal static bool ProgramExistence()
-        {
-            if ((string)VoiceReminderKey.GetValue("program_existance") != "true" || VoiceReminderKey.GetValue("program_existance") == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
         internal static void FirstRunActions()
         {
             _yokaIncKey = _softwareMachineKey.CreateSubKey("YokaInc");
             VoiceReminderKey = _yokaIncKey.CreateSubKey("VoiceReminder");
-            VoiceReminderKey.SetValue("program_existance", "true");
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run\", "VoiceReminder",
-                "\"" + Application.ExecutablePath + "\"" + " /MINIMIZED");
-            VoiceReminderKey.SetValue("program_data_path", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.VoiceReminder"); 
+            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run\"
+                , "VoiceReminder", "\"" + Application.ExecutablePath + "\"" + " /MINIMIZED");
+            VoiceReminderKey.SetValue("program_data_path",
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.VoiceReminder"); 
         }
 
         internal static object GetLanguage()
@@ -68,11 +59,15 @@ namespace VoiceReminder
             try
             {
                 OpenRegistry();
-                programDataPath = (string) VoiceReminderKey.GetValue("program_data_path");
+                ProgramDataPath = (string) VoiceReminderKey.GetValue("program_data_path");
                 CloseRegistry();
                 return true;
             }
             catch (AccessViolationException)
+            {
+                return false;
+            }
+            catch (NullReferenceException)
             {
                 return false;
             }

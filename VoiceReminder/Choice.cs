@@ -1,11 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VoiceReminder
+﻿namespace VoiceReminder
 {
     internal static class Choice
     {
@@ -13,9 +6,9 @@ namespace VoiceReminder
         {
             LanguageChooseWindow languageForm = new LanguageChooseWindow();
             languageForm.ShowDialog();
-            if (languageForm.language != "none")
+            if (languageForm.Language != "none")
             {
-                var preferredLanguage = languageForm.language;
+                var preferredLanguage = languageForm.Language;
                 ProgramRegistry.SetLanguage(preferredLanguage);
                 return true;
             }

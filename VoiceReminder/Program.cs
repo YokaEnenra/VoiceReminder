@@ -14,26 +14,26 @@ namespace VoiceReminder
         /// </summary>
         [STAThread] 
         
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
-                OpenRegistry();
-                if (!ProgramExistence() || !GetDataPath())
-                {
+                if (!GetDataPath())
                     throw new ProgramNotExistException();
-                }
             }
-            catch (Exception)
+            catch (ProgramNotExistException)
             {
                 FirstRunActions();
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\.VoiceReminder\Audio");
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\.VoiceReminder\TextData");
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                          @"\.VoiceReminder\Audio");
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                          @"\.VoiceReminder\TextData");
+                GetDataPath();
 
             }
-            if (GetLanguage() == "none" || GetLanguage() == null)
+            if (GetLanguage() == null)
             {
                 if (!Choice.Language())
                 {
@@ -47,14 +47,19 @@ namespace VoiceReminder
 
             bool onlyInstance;
 
-            Mutex mtx = new Mutex(true, "VoiceReminder", out onlyInstance); // используйте имя вашего приложения
-
-            // Если другие процессы не владеют мьютексом, то
-            // приложение запущено в единственном экземпляре
+            Mutex mtx = new Mutex(true, "VoiceReminder", out onlyInstance);
             if (onlyInstance)
             {
                 Task.Run(ReminderTracker.StartTracking);
-                Application.Run(new MainWindow());
+                try
+                {
+                    Application.Run(args[0].Equals("/MINIMIZED") ? new MainWindow(true) : new MainWindow(false));
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Application.Run(new MainWindow(false));
+                }
+                    
             }
             else
             {

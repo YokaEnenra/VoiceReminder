@@ -159,6 +159,7 @@
             // 
             // showReminders
             // 
+            this.showReminders.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.showReminders.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.showReminders.Location = new System.Drawing.Point(390, 154);
             this.showReminders.Name = "showReminders";
@@ -194,19 +195,19 @@
             this.showApplication,
             this.exitApplication});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(126, 48);
             // 
             // showApplication
             // 
             this.showApplication.Name = "showApplication";
-            this.showApplication.Size = new System.Drawing.Size(180, 22);
+            this.showApplication.Size = new System.Drawing.Size(125, 22);
             this.showApplication.Text = "Показати";
             this.showApplication.Click += new System.EventHandler(this.showApplication_Click);
             // 
             // exitApplication
             // 
             this.exitApplication.Name = "exitApplication";
-            this.exitApplication.Size = new System.Drawing.Size(180, 22);
+            this.exitApplication.Size = new System.Drawing.Size(125, 22);
             this.exitApplication.Text = "Вихід";
             this.exitApplication.Click += new System.EventHandler(this.exitApplication_Click);
             // 

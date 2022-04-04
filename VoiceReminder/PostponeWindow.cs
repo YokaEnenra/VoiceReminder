@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static VoiceReminder.ProgramDictionary;
 using static VoiceReminder.ProgramRegistry;
@@ -76,12 +69,7 @@ namespace VoiceReminder
                 return;
             string timeNoDoubleQuotation = timePicker.Value.TimeOfDay.ToString().Replace(':','.').Remove(5,3);
             var newFilePath =
-                $@"{programDataPath}\TextData\{daysBefore}_{hoursBefore}_{datePicker.Value.Date.ToString().Remove(10,9)}_{timeNoDoubleQuotation}.txt";
-            /*var toWriteText = $"{reminderName.Text}\n{_lastRecordFile}";
-            using (StreamWriter sw = new StreamWriter(newFilePath, false, System.Text.Encoding.Default))
-            {
-                sw.Write(toWriteText);
-            }*/
+                $@"{ProgramDataPath}\TextData\{daysBefore}_{hoursBefore}_{datePicker.Value.Date.ToString().Remove(10,9)}_{timeNoDoubleQuotation}.txt";
             File.Move(_oldFilePath,newFilePath);
             MessageBox.Show($"{Words["creationSuccess"]}: {datePicker.Text}, {timePicker.Text}", Words["info"],
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

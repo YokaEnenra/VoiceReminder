@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using static VoiceReminder.ProgramRegistry;
 
 namespace VoiceReminder
@@ -44,7 +43,8 @@ namespace VoiceReminder
                 {"noName","0"},
                 {"notifyDate","0"},
                 {"creationSuccess","0"},
-                {"reminderIs","0"}
+                {"reminderIs","0"},
+                {"noAudioRecorded","0"}
             };
         internal static void Set()
         {
@@ -88,6 +88,7 @@ namespace VoiceReminder
                     Words["notifyDate"] = "Notification date has passed";
                     Words["creationSuccess"] = "Reminder created for: ";
                     Words["reminderIs"] = "The event will take place on ";
+                    Words["noAudioRecorded"] = "The audio file for this reminder has not been recorded.";
                     break;
                 case "Українська":
                     Words["info"] = "Інформація!";
@@ -127,6 +128,7 @@ namespace VoiceReminder
                     Words["notifyDate"] = "Дата повідомлення пройшла";
                     Words["creationSuccess"] = "Нагадування створено на: ";
                     Words["reminderIs"] = "Подія відбудеться у ";
+                    Words["noAudioRecorded"] = "Аудіо файл для цього повідомлення не було записано.";
                     break;
             }
         }

@@ -18,13 +18,13 @@ namespace VoiceReminder
         {
             _currentFilePath = file;
             var filePathSplit = file.Split('\\');
-            var _date = filePathSplit[filePathSplit.Length - 1].Replace(".txt", "");
+            var date = filePathSplit[filePathSplit.Length - 1].Replace(".txt", "");
             int temp = 0;
             int counter = 0;
 
-            for (int i = 0; i < _date.Length; i++)
+            for (int i = 0; i < date.Length; i++)
             {
-                if (_date[i] == '_')
+                if (date[i] == '_')
                     counter++;
                 if (counter == 2)
                 {
@@ -34,16 +34,16 @@ namespace VoiceReminder
 
                 if (counter == 0)
                 {
-                    daysBefore += _date[i];
+                    daysBefore += date[i];
                     continue;
                 }
 
-                hoursBefore += _date[i];
+                hoursBefore += date[i];
             }
 
             hoursBefore = hoursBefore.Remove(0, 1);
-            _date = _date.Remove(0, temp + 1);
-            var partsDate = _date.Split('_');
+            date = date.Remove(0, temp + 1);
+            var partsDate = date.Split('_');
             reminderDate = partsDate[0].Split('.');
             reminderTime = partsDate[1].Split('.');
         }
@@ -52,7 +52,7 @@ namespace VoiceReminder
         {
             while(true)
             {
-                allfiles = Directory.GetFiles($@"{programDataPath}\TextData\", "*.*", SearchOption.AllDirectories);
+                allfiles = Directory.GetFiles($@"{ProgramDataPath}\TextData\", "*.*", SearchOption.AllDirectories);
                 foreach (string file in allfiles)
                 {
                     daysBefore = "";
@@ -61,27 +61,25 @@ namespace VoiceReminder
                     DateTime date = new DateTime(Convert.ToInt32(reminderDate[2]), Convert.ToInt32(reminderDate[1]),
                         Convert.ToInt32(reminderDate[0]), Convert.ToInt32(reminderTime[0]),
                         Convert.ToInt32(reminderTime[1]), 0);
-                    var CompareDays = date.AddDays(-Convert.ToInt32(daysBefore));
-                    if (CompareDays.Date == DateTime.Now.Date &&
+                    var compareDays = date.AddDays(-Convert.ToInt32(daysBefore));
+                    if (compareDays.Date == DateTime.Now.Date &&
                         date.TimeOfDay.Hours == DateTime.Now.TimeOfDay.Hours &&
-                        date.TimeOfDay.Minutes == DateTime.Now.TimeOfDay.Minutes &&
-                        date.TimeOfDay.Seconds == DateTime.Now.TimeOfDay.Seconds)
+                        date.TimeOfDay.Minutes == DateTime.Now.TimeOfDay.Minutes)
                     {
                         RemindWindow remind = new RemindWindow();
                         remind.ShowDialog(_currentFilePath);
                         continue;
                     }
-                    var CompareHours = date.AddHours(-Convert.ToInt32(hoursBefore)).TimeOfDay;
-                    if (CompareHours.Hours == DateTime.Now.TimeOfDay.Hours &&
-                        CompareHours.Minutes == DateTime.Now.TimeOfDay.Minutes &&
-                        CompareHours.Seconds == DateTime.Now.TimeOfDay.Seconds)
+                    var compareHours = date.AddHours(-Convert.ToInt32(hoursBefore)).TimeOfDay;
+                    if (compareHours.Hours == DateTime.Now.TimeOfDay.Hours &&
+                        compareHours.Minutes == DateTime.Now.TimeOfDay.Minutes)
                     {
                         RemindWindow remind = new RemindWindow();
                         remind.ShowDialog(_currentFilePath);
                     }
 
                 }
-                await Task.Delay(1000);
+                await Task.Delay(60000);
             }
         }
     }

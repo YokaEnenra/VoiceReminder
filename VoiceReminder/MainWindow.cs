@@ -1,7 +1,6 @@
 ﻿using NAudio.Wave;
 using System;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using VoiceReminder.Properties;
 using static VoiceReminder.ProgramDictionary;
@@ -17,26 +16,26 @@ namespace VoiceReminder
         private bool _isRecorded;
         private bool _isPlaying;
         private bool _reminderCreated;
-        // WaveIn - поток для записи
+        private bool _isAutorun;
         WaveIn _waveIn;
-        //Класс для записи в файл
         WaveFileWriter _writer;
-        //Имя файла для записи
         private string _outputFilename;
         private string _lastRecordFile;
         private WMPLib.WindowsMediaPlayer WMP;
 
 
-        internal MainWindow()
+        internal MainWindow(bool isAutorun)
         {
             InitializeComponent();
             Load += Form1_Load;
             FormClosing += MainWindow_FormClosing;
             SizeChanged += MainWindow_Resize;
+            _isAutorun = isAutorun;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             timePicker.Format = DateTimePickerFormat.Custom;
             timePicker.CustomFormat = "HH:mm";
             timePicker.ShowUpDown = true;
@@ -62,6 +61,14 @@ namespace VoiceReminder
             hours.Text = Words["hours"];
             days.Text = Words["days"];
             _lastRecordFile = "0";
+            if(_isAutorun)
+                Autorun();
+        }
+
+        private void Autorun()
+        {
+            _userClosing = true;
+            WindowState = FormWindowState.Minimized;
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -90,9 +97,7 @@ namespace VoiceReminder
             if (!_fullExit)
             {
                 _userClosing = true;
-                // Отменить закрытие формы
                 e.Cancel = true;
-                // Вместо закрытия — свернуть
                 WindowState = FormWindowState.Minimized;
             }
             else
@@ -100,7 +105,6 @@ namespace VoiceReminder
                 Close();
             }
         }
-
 
 
         void waveIn_DataAvailable(object sender, WaveInEventArgs e)
@@ -111,16 +115,15 @@ namespace VoiceReminder
             }
             else
             {
-                //Записываем данные из буфера в файл
                 _writer.Write(e.Buffer, 0, e.BytesRecorded);
             }
         }
-        //Завершаем запись
+
         void StopRecording()
         {
             _waveIn.StopRecording();
         }
-        //Окончание записи
+
         private void waveIn_RecordingStopped(object sender, EventArgs e)
         {
             if (InvokeRequired)
@@ -150,19 +153,12 @@ namespace VoiceReminder
                 try
                 {
                     _waveIn = new WaveIn();
-                    //Дефолтное устройство для записи (если оно имеется)
-                    //встроенный микрофон ноутбука имеет номер 0
                     _waveIn.DeviceNumber = 0;
-                    //Прикрепляем к событию DataAvailable обработчик, возникающий при наличии записываемых данных
                     _waveIn.DataAvailable += waveIn_DataAvailable;
-                    //Прикрепляем обработчик завершения записи
                     _waveIn.RecordingStopped += waveIn_RecordingStopped;
-                    //Формат wav-файла - принимает параметры - частоту дискретизации и количество каналов(здесь mono)
                     _waveIn.WaveFormat = new WaveFormat(8000, 1);
-                    //Инициализируем объект WaveFileWriter
-                    _outputFilename = programDataPath + @"\Audio\" + DateTime.Now.ToString().Replace(':', '.') + ".mp3";
+                    _outputFilename = ProgramDataPath + @"\Audio\" + DateTime.Now.ToString().Replace(':', '.') + ".mp3";
                     _writer = new WaveFileWriter(_outputFilename, _waveIn.WaveFormat);
-                    //Начало записи
                     _waveIn.StartRecording();
                 }
                 catch (Exception ex)
@@ -184,7 +180,8 @@ namespace VoiceReminder
         {
             if (!_isRecorded)
             {
-                MessageBox.Show(Words["noFile"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Words["noFile"], Words["info"], 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -211,6 +208,7 @@ namespace VoiceReminder
             }
 
             File.Delete(_lastRecordFile);
+            _lastRecordFile = "0";
             _isRecorded = false;
         }
 
@@ -222,7 +220,7 @@ namespace VoiceReminder
                 return;
             }
 
-            if (String.IsNullOrEmpty(reminderName.Text))
+            if (string.IsNullOrEmpty(reminderName.Text))
             {
                 MessageBox.Show(Words["noName"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -265,9 +263,9 @@ namespace VoiceReminder
                 Words["areSure"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.No)
                 return;
-            string timeNoDoubleQuotation = timePicker.Value.TimeOfDay.ToString().Replace(':','.').Remove(5,3);
+            string timeNoDoubleQuotation = timePicker.Value.TimeOfDay.ToString().Replace(':','.').Remove(5, timePicker.Value.TimeOfDay.ToString().Length-5);
             var newFilePath =
-                $@"{programDataPath}\TextData\{daysBefore}_{hoursBefore}_{datePicker.Value.Date.ToString().Remove(10,9)}_{timeNoDoubleQuotation}.txt";
+                $@"{ProgramDataPath}\TextData\{daysBefore}_{hoursBefore}_{datePicker.Value.Date.ToString().Remove(10,9)}_{timeNoDoubleQuotation}.txt";
             var toWriteText = $"{reminderName.Text}\n{_lastRecordFile}";
             using (StreamWriter sw = new StreamWriter(newFilePath, false, System.Text.Encoding.Default))
             {
@@ -280,7 +278,7 @@ namespace VoiceReminder
             reminderName.Text = "";
             daysCount.Text = "";
             hoursCount.Text = "";
-            _lastRecordFile = "";
+            _lastRecordFile = "0";
             datePicker.Value = DateTime.Now.Date;
             timePicker.Value = DateTime.Now;
         }
@@ -302,7 +300,7 @@ namespace VoiceReminder
 
         private void exitApplication_Click(object sender, EventArgs e)
         {
-            var closeDialog = MessageBox.Show(ProgramDictionary.Words["fullExitInfo"], ProgramDictionary.Words["info"],
+            var closeDialog = MessageBox.Show(Words["fullExitInfo"], Words["info"],
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (closeDialog == DialogResult.Yes)
             {
@@ -310,6 +308,7 @@ namespace VoiceReminder
                 if (!_reminderCreated && _isRecorded)
                 {
                     File.Delete(_lastRecordFile);
+                    _lastRecordFile = "0";
                 }
                 Application.Exit();
             }
@@ -323,11 +322,10 @@ namespace VoiceReminder
 
         private void changeLanguageStrip_Click(object sender, EventArgs e)
         {
-            ProgramRegistry.OpenRegistry();
+            OpenRegistry();
             if (Choice.Language())
-                MessageBox.Show(ProgramDictionary.Words["changesAfter"], ProgramDictionary.Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ProgramRegistry.CloseRegistry();
+                MessageBox.Show(Words["changesAfter"], Words["info"], MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CloseRegistry();
         }
-
     }
 }

@@ -74,7 +74,7 @@
             this.choiceCancel.TabIndex = 3;
             this.choiceCancel.Text = "Cancel";
             this.choiceCancel.UseVisualStyleBackColor = true;
-            this.choiceCancel.Click += new System.EventHandler(this.choiseCancel_Click);
+            this.choiceCancel.Click += new System.EventHandler(this.choiceCancel_Click);
             // 
             // LanguageChooseWindow
             // 
